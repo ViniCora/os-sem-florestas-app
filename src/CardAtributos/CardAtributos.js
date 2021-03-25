@@ -15,7 +15,7 @@ import percepcaoImg from '../Icons/Binoculars.png'
 import Modal from 'react-modal';
 import './CardAtributos.css'
 
-function CardAtributos({Atributo,Value}){
+function CardAtributos({Atributo,Value,id}){
     const customStyles = {
         content : {
           top                   : '25%',

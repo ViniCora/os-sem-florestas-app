@@ -1,18 +1,18 @@
 import React from 'react'
 import CardAtributos from '../CardAtributos/CardAtributos';
 
-function Atributos({Força, Destreza, Carisma, Inteligencia, Resistencia, Mira, Oficio, Percepcao}){
+function Atributos({id, Força, Destreza, Carisma, Inteligencia, Resistencia, Mira, Oficio, Percepcao}){
     return(
         <div>
-            <CardAtributos Atributo="Vida" Value={100}></CardAtributos>
-            <CardAtributos Atributo="Força" Value={Força}></CardAtributos>
-            <CardAtributos Atributo="Destreza" Value={Destreza}></CardAtributos>
-            <CardAtributos Atributo="Carisma" Value={Carisma}></CardAtributos>
-            <CardAtributos Atributo="Inteligência" Value={Inteligencia}></CardAtributos>
-            <CardAtributos Atributo="Resistência" Value={Resistencia}></CardAtributos>
-            <CardAtributos Atributo="Mira" Value={Mira}></CardAtributos>
-            <CardAtributos Atributo="Ofício" Value={Oficio}></CardAtributos>
-            <CardAtributos Atributo="Percepção" Value={Percepcao}></CardAtributos>
+            <CardAtributos Atributo="Vida" Value={100} id={id}></CardAtributos>
+            <CardAtributos Atributo="Força" Value={Força} id={id}></CardAtributos>
+            <CardAtributos Atributo="Destreza" Value={Destreza} id={id}></CardAtributos>
+            <CardAtributos Atributo="Carisma" Value={Carisma} id={id}></CardAtributos>
+            <CardAtributos Atributo="Inteligência" Value={Inteligencia} id={id}></CardAtributos>
+            <CardAtributos Atributo="Resistência" Value={Resistencia} id={id}></CardAtributos>
+            <CardAtributos Atributo="Mira" Value={Mira} id={id}></CardAtributos>
+            <CardAtributos Atributo="Ofício" Value={Oficio} id={id}></CardAtributos>
+            <CardAtributos Atributo="Percepção" Value={Percepcao} id={id}></CardAtributos>
         </div>
     );
 }
