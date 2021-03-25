@@ -4,6 +4,7 @@ import CardAtributos from '../CardAtributos/CardAtributos';
 function Atributos({Força, Destreza, Carisma, Inteligencia, Resistencia, Mira, Oficio, Percepcao}){
     return(
         <div>
+            <CardAtributos Atributo="Vida" Value={100}></CardAtributos>
             <CardAtributos Atributo="Força" Value={Força}></CardAtributos>
             <CardAtributos Atributo="Destreza" Value={Destreza}></CardAtributos>
             <CardAtributos Atributo="Carisma" Value={Carisma}></CardAtributos>

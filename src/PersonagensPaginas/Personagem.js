@@ -54,7 +54,7 @@ function Personagem({Nome}){
                             <h1 style={{paddingLeft: '20px', paddingTop: '0px', margin: '0px'}}>{`Jogador: ${atributes.jogador}`}</h1>
                             <h2 style={{paddingLeft: '20px', paddingTop: '50px', margin: '0px'}}>{`Data de nascimento: ${atributes.nascimento}`}</h2>
                             <h2 style={{paddingLeft: '20px', paddingTop: '10px', margin: '0px'}}>{`Ofício pré bomba: ${atributes.oficio_pre_base}`}</h2>
-                            <h2 style={{paddingLeft: '20px', paddingTop: '10px', margin: '0px'}}>{`Cargo da base: ${atributes.oficio_base}`}</h2>
+                            <h2 style={{paddingLeft: '20px', paddingTop: '10px', margin: '0px', paddingBottom: '40px'}}>{`Cargo da base: ${atributes.oficio_base}`}</h2>
                         </div>
                     </div>
                     <Atributos Força={atributes.força} Destreza={atributes.destreza} Carisma={atributes.carisma} Inteligencia={atributes.inteligencia} 

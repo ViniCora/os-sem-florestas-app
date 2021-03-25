@@ -7,6 +7,10 @@ import inteligenciaImg from '../Icons/Brain.png'
 import resistenciaImg from '../Icons/Strong.png'
 import miraImg from '../Icons/Gun.png'
 import oficioImg from '../Icons/Wrench.png'
+import vidaImg from '../Icons/heart.png'
+import editarImg from '../Icons/pencil.png'
+import confirmar from '../Icons/right.png'
+import cancenlar from '../Icons/wrong.png'
 import percepcaoImg from '../Icons/Binoculars.png'
 import Modal from 'react-modal';
 import './CardAtributos.css'
@@ -33,6 +37,9 @@ function CardAtributos({Atributo,Value}){
     const [rollSemMod, setRollSemMod] = useState(0);
     const [contestacao, setContestacao] = useState(0);
     const valorMinimo = 100 - Value;
+    const [isEditar, setIsEditar] = useState(false);
+    const [vidaPreEdicao, setVidaPreEdicao] = useState(0);
+    const [vida, setVida] = useState(Value);
 
     return(
         
@@ -130,12 +137,57 @@ function CardAtributos({Atributo,Value}){
                          Atributo === 'Inteligência' ? inteligenciaImg :
                          Atributo === 'Resistência' ? resistenciaImg : 
                          Atributo === 'Mira' ? miraImg : 
-                         Atributo === 'Ofício' ? oficioImg : percepcaoImg} alt="Força" />
+                         Atributo === 'Ofício' ? oficioImg : 
+                         Atributo == 'Percepção' ? percepcaoImg : vidaImg} alt="Força" />
                 </div>
-                <label style={{fontSize: '30px', paddingLeft:'10px'}}>{Atributo}: {Value}</label>
+                {
+                    isEditar ? 
+                        <div>
+                            <label style={{fontSize: '30px', paddingLeft:'10px'}}>{Atributo}: </label>
+                                <input value={Atributo == 'Vida' ? vida : Value} maxLength='3'
+                                style={{backgroundColor: '#696969', fontSize: '30px', maxWidth: '70px', maxHeight: '50px', marginBottom: '50px', borderStyle: 'none', 
+                                borderBottomColor: '#000', borderBottomWidth: '2px', borderBottomStyle: 'solid', boxShadow: '#696969'}} 
+                                type='number' onChange={(event)=>{
+                                    setVidaPreEdicao(Value);
+
+                                    var value = event.target.value;
+
+                                    if(value <= 100 && value >= -100){
+                                        setVida(value);
+                                    }
+
+                                }}></input>
+                            
+                        </div>
+                    : 
+                        <label style={{fontSize: '30px', paddingLeft:'10px'}}>{Atributo}: {Atributo == 'Vida' ? vida : Value}</label>
+                }
             </div>
-            <div>
-             <input type='image' src={dados} alt='row' width="40px" height="40px" onClick={()=>{setIsOpen(true);}}/> 
+            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+             <input type='image' src={isEditar ? cancenlar : (Atributo == 'Vida' ? editarImg : dados)} alt='row' width="40px" height="40px" onClick={()=>{
+                 
+                    if(isEditar){
+                        setVida(vidaPreEdicao);
+                        setIsEditar(false);
+                    }else{
+                        if(Atributo == 'Vida'){
+                            setIsEditar(true);
+                        }else{
+                            setIsEditar(false);
+                            setIsOpen(true);
+                        }
+                    }
+                }
+            }/> 
+             {isEditar ? 
+                <input type='image' src={confirmar} alt='row' width="40px" height="40px" onClick={()=>{
+                        setIsEditar(false);
+                   }
+               }/> 
+            :
+            
+               ''
+            }
             </div>
          </div>
     );
