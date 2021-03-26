@@ -13,6 +13,7 @@ import confirmar from '../Icons/right.png'
 import cancenlar from '../Icons/wrong.png'
 import percepcaoImg from '../Icons/Binoculars.png'
 import Modal from 'react-modal';
+import AtributesDataService from '../Services/AtributesService.js';
 import './CardAtributos.css'
 
 function CardAtributos({Atributo,Value,id}){
@@ -181,7 +182,17 @@ function CardAtributos({Atributo,Value,id}){
             }/> 
              {isEditar ? 
                 <input type='image' src={confirmar} alt='row' width="40px" height="40px" onClick={()=>{
+                       
+                        AtributesDataService.updateVida(id, {vida: vida})
+                        .then((response) => {
+                            console.log("Vida alterada com sucesso");
+                        })
+                        .catch((e) => {
+                        console.log(e);
+                        });
+
                         setIsEditar(false);
+                        
                    }
                }/> 
             :

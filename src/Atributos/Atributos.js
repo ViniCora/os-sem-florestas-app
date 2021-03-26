@@ -1,10 +1,10 @@
 import React from 'react'
 import CardAtributos from '../CardAtributos/CardAtributos';
 
-function Atributos({id, Força, Destreza, Carisma, Inteligencia, Resistencia, Mira, Oficio, Percepcao}){
+function Atributos({id, Força, Destreza, Carisma, Inteligencia, Resistencia, Mira, Oficio, Percepcao, Vida}){
     return(
         <div>
-            <CardAtributos Atributo="Vida" Value={100} id={id}></CardAtributos>
+            <CardAtributos Atributo="Vida" Value={Vida} id={id}></CardAtributos>
             <CardAtributos Atributo="Força" Value={Força} id={id}></CardAtributos>
             <CardAtributos Atributo="Destreza" Value={Destreza} id={id}></CardAtributos>
             <CardAtributos Atributo="Carisma" Value={Carisma} id={id}></CardAtributos>

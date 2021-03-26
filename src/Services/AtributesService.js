@@ -4,4 +4,8 @@ const getAtributes = (name) => {
     return http.get(`/atributes?name=${name}`);
 };
 
-export default { getAtributes };
+const updateVida = (id, data) => {
+    return http.put(`/atributes/${id}`, data);
+}
+
+export default { getAtributes, updateVida};

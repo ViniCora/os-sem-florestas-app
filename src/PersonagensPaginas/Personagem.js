@@ -58,7 +58,7 @@ function Personagem({Nome}){
                         </div>
                     </div>
                     <Atributos id={atributes._id} Força={atributes.força} Destreza={atributes.destreza} Carisma={atributes.carisma} Inteligencia={atributes.inteligencia} 
-                        Resistencia={atributes.resistencia} Mira={atributes.mira} Oficio={atributes.oficio} Percepcao={atributes.percepcao}></Atributos>
+                        Resistencia={atributes.resistencia} Mira={atributes.mira} Oficio={atributes.oficio} Percepcao={atributes.percepcao} Vida={atributes.vida}></Atributos>
                 </div>
             }
         </div>
