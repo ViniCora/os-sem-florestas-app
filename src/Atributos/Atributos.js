@@ -5,6 +5,7 @@ function Atributos({id, Força, Destreza, Carisma, Inteligencia, Resistencia, Mi
     return(
         <div>
             <CardAtributos Atributo="Vida" Value={Vida} id={id}></CardAtributos>
+            <CardAtributos Atributo="Iniciativa" Value={Destreza} id={id}></CardAtributos>
             <CardAtributos Atributo="Força" Value={Força} id={id}></CardAtributos>
             <CardAtributos Atributo="Destreza" Value={Destreza} id={id}></CardAtributos>
             <CardAtributos Atributo="Carisma" Value={Carisma} id={id}></CardAtributos>

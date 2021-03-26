@@ -21,7 +21,6 @@ function Personagem({Nome}){
         AtributesDataService.getAtributes(Nome)
         .then((response) => {
         setAtributes(response.data[0]);
-        console.log(response.data[0].jogador);
         })
         .catch((e) => {
         console.log(e);

@@ -11,6 +11,7 @@ import vidaImg from '../Icons/heart.png'
 import editarImg from '../Icons/pencil.png'
 import confirmar from '../Icons/right.png'
 import cancenlar from '../Icons/wrong.png'
+import iniciativaImg from '../Icons/podium.png'
 import percepcaoImg from '../Icons/Binoculars.png'
 import Modal from 'react-modal';
 import AtributesDataService from '../Services/AtributesService.js';
@@ -41,7 +42,9 @@ function CardAtributos({Atributo,Value,id}){
     const [isEditar, setIsEditar] = useState(false);
     const [vidaPreEdicao, setVidaPreEdicao] = useState(0);
     const [vida, setVida] = useState(Value);
-
+    const [valorGarantido, setValorGarantido] = useState(0);
+    const [iniciativa, setIniciativa] = useState(0);
+ 
     return(
         
         <div style={{width:'750px', borderColor: '#fff', borderRadius: '8px', borderStyle: 'solid', borderWidth: '2px', 
@@ -61,21 +64,27 @@ function CardAtributos({Atributo,Value,id}){
                                 <div style={{width: '75%', height: '200px', borderColor: '#fff', 
                                     borderRadius: '8px', borderStyle: 'solid', borderWidth: '2px', display: 'flex', 
                                     flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between'}}>
-                                        <h2 style={{ fontSize: '20px', marginTop: '20px'}}>{
-                                            (roll > 1 && roll < valorMinimo) ? 'Falhou, rodou: ' + roll + (modifier != 0 ? ` (${rollSemMod} com modifier de: ${modifier})` : '') +  '.' :
-                                            (roll < 100 && roll > valorMinimo) ? 'Sucesso, rodou: ' + roll + (modifier != 0 ? ` (${rollSemMod} com modifier de: ${modifier})` : '') +'.' : 
-                                            roll === 1 ? 'Falha Critica' : 
-                                            roll < 1 ? 'Ação Impossivel' : 
-                                            roll === 100 ? 'Sucesso Critico, rodou: ' + roll :
-                                            roll > 100 ? 'Ação garantida' : ''
+                                        { Atributo === 'Iniciativa' ?  
+                                                <h2 style={{ fontSize: '20px', marginBottom: '20px'}}> Valor de iniciativa: {iniciativa}.</h2>
+                                            : 
+                                            
+                                                ''
+                                        }
+                                        <h2 style={{ fontSize: '20px', marginTop: '20px'}}>{ Atributo === 'Iniciativa' ? '' :
+                                            rollSemMod === 1 ? 'Falha Crítica, rodou: ' + roll :  
+                                            rollSemMod === 100 ? 'Sucesso Crítico, rodou: ' + roll :
+                                            (valorGarantido <= 0) ? 'Ação Impossivel!' :
+                                            (roll >= 1 && roll < valorMinimo) ? 'Falhou, rodou: ' + roll + (modifier != 0 ? ` (${rollSemMod} com modifier de: ${modifier})` : '') +  '.' :
+                                            (roll < 100 && roll > valorMinimo && valorGarantido < 100) ? 'Sucesso, rodou: ' + roll + (modifier != 0 ? ` (${rollSemMod} com modifier de: ${modifier})` : '') +'.' : 
+                                            valorGarantido >= 100 ? 'Ação garantida!' : ''
                                         }</h2>
-                                        { (roll < 1 || roll > 100) ? <div></div> : 
+                                        { (roll <= 0 || roll >= 100 || valorGarantido <= 0) ? '' : 
                                             <h2 style={{ fontSize: '20px', marginBottom: '20px'}}>{`Valor minimo para sucesso era: ${valorMinimo}.`}</h2>
                                         }
-                                        {(roll < 100 && roll > valorMinimo) ?
+                                        {roll > valorMinimo ?
                                             <h2 style={{ fontSize: '20px', marginBottom: '20px'}}> Valor de contestação: {contestacao}.</h2>
                                         :
-                                            <div></div>
+                                            ''
                                         }
                                 </div>
                             </div>
@@ -118,10 +127,18 @@ function CardAtributos({Atributo,Value,id}){
                                             var newRoll = (Math.floor(Math.random() * 100) + 1);
                                             setRollSemMod(newRoll);
                                             newRoll += parseInt(mod);
+                                            if(newRoll > 100){
+                                                newRoll = 100;
+                                            }
+                                            if(newRoll <= 0){
+                                                newRoll = 1;
+                                            }
                                             setRoll(newRoll);
                                             var cont = Math.ceil((Value * newRoll)/100);
                                             console.log(cont);
                                             setContestacao(cont);
+                                            const valorgarantido= Value + parseInt(mod);
+                                            setValorGarantido(Value + parseInt(mod));
                                             setHasRoll(true);
                                         }
                                     }>Rodar</button>
@@ -139,7 +156,8 @@ function CardAtributos({Atributo,Value,id}){
                          Atributo === 'Resistência' ? resistenciaImg : 
                          Atributo === 'Mira' ? miraImg : 
                          Atributo === 'Ofício' ? oficioImg : 
-                         Atributo == 'Percepção' ? percepcaoImg : vidaImg} alt="Força" />
+                         Atributo == 'Percepção' ? percepcaoImg : 
+                         Atributo == 'Vida' ? vidaImg : iniciativaImg} alt="Força" />
                 </div>
                 {
                     isEditar ? 
@@ -161,7 +179,8 @@ function CardAtributos({Atributo,Value,id}){
                             
                         </div>
                     : 
-                        <label style={{fontSize: '30px', paddingLeft:'10px'}}>{Atributo}: {Atributo == 'Vida' ? vida : Value}</label>
+                        <label style={{fontSize: '30px', paddingLeft:'10px'}}>{Atributo == 'Iniciativa' ? `Iniciativa` : `${Atributo}:`} {Atributo == 'Vida' ? vida : 
+                        Atributo == 'Iniciativa' ? '' : Value}</label>
                 }
             </div>
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
@@ -171,10 +190,16 @@ function CardAtributos({Atributo,Value,id}){
                         setVida(vidaPreEdicao);
                         setIsEditar(false);
                     }else{
-                        if(Atributo == 'Vida'){
+                        if(Atributo === 'Vida'){
                             setIsEditar(true);
                         }else{
                             setIsEditar(false);
+                            if(Atributo === 'Iniciativa'){
+                                setHasRoll(true);
+                                var newRoll = (Math.floor(Math.random() * 100) + 1);
+                                var ini = Math.ceil((newRoll * Value) /100);
+                                setIniciativa(ini);
+                            }
                             setIsOpen(true);
                         }
                     }
